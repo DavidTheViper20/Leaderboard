@@ -89,3 +89,14 @@ app.patch('/leaderboard/:teamId', checkAuth, (req, res) => {
 app.listen(PORT, () => {
     console.log(`Leaderboard app running at port ${PORT}`);
 });
+
+
+// ----------------- FALLBACK ROUTE -----------------
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// ----------------- START SERVER -----------------
+app.listen(PORT, () => {
+    console.log(`Leaderboard app running at port ${PORT}`);
+});
