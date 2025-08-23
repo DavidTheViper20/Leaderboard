@@ -85,6 +85,7 @@ app.patch('/leaderboard/:teamId', checkAuth, (req, res) => {
     res.json(team);
 });
 
+
 app.listen(PORT, () => {
-    console.log(`Leaderboard app running at http://localhost:${PORT}`);
+    console.log(`Leaderboard app running at port ${PORT}`);
 });
