@@ -34,7 +34,6 @@ function loadLeaderboard() {
             document.querySelectorAll('#teams li').forEach(li => {
                 prevPositions[li.dataset.id] = li.getBoundingClientRect().top;
             });
-            
 
             teamsList.innerHTML = '';
 
