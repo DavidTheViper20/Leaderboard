@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Baywatch Blues",
+    "points": 94,
+    "colour": "#000080",
+    "logo": "icons/blue-pixel.png",
+    "members": []
+  },
+  {
+    "id": 2,
+    "name": "Banana Boat Brigade",
+    "points": 82,
+    "colour": "#f2e600",
+    "logo": "icons/banana-pixel.png",
+    "members": []
+  },
+  {
+    "id": 3,
+    "name": "Lobster Squad",
+    "points": 84,
+    "colour": "#ff0000",
+    "logo": "icons/lobster-pixel.png",
+    "members": []
+  },
+  {
+    "id": 4,
+    "name": "Green Ninjas",
+    "points": 65,
+    "colour": "#008000",
+    "logo": "icons/ninja-pixel.png",
+    "members": []
+  },
+  {
+    "id": 5,
+    "name": "Mayo Militia",
+    "points": 60,
+    "colour": "#fff8e0",
+    "logo": "icons/mayo-pixel.png",
+    "members": []
+  },
+  {
+    "id": 6,
+    "name": "Sunkissed Savers",
+    "points": 58,
+    "colour": "#ffa500",
+    "logo": "icons/sun-pixel.png",
+    "members": []
+  }
+]

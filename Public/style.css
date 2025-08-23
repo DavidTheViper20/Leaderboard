@@ -1,0 +1,117 @@
+
+
+/* Plus and Minus buttons */
+.plus-btn, .minus-btn {
+    min-width: 44 px;           /* same width for both */
+    height: 32px;          /* same height */
+    font-size: 16px;       /* slightly bigger text */
+    font-weight: normal;   /* + stays normal */
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    border: none;
+}
+
+.plus-btn { background-color: #007bff; }
+.minus-btn { 
+    background-color: #dc3545; 
+    font-weight: bold;      /* make − slightly thicker */
+}
+
+/* Remove button */
+.team-btn {
+    min-width: 70px;        /* slightly bigger */
+    height: 38px;
+    font-size: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    border: none;
+    background-color: #424242;
+}
+
+
+/* Teams list */
+#teams {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative; /* needed for absolute positioning of children */
+}
+
+#teams li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.5s ease; /* smooth move */
+    background-color: #333; /* fallback */
+}
+
+#teams li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Main row inside each team li */
+.team-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Left side: icon + name */
+.team-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Right side: score + buttons */
+.team-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0; /* keeps right side fixed */
+}
+
+/* Team info */
+.team-info {
+    display: flex;
+    align-items: center;
+}
+
+.team-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.team-name {
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    font-weight: bold;
+}
+
+/* Score box */
+.score-box {
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ffd700;
+    color: #000;
+    font-weight: bold;
+    border: 2px solid #000;
+    border-radius: 3px;
+    text-align: center;
+}
+
+
