@@ -26,13 +26,20 @@ function loadLeaderboard() {
     fetch('/leaderboard')
         .then(res => res.json())
         .then(data => {
-            // Sort teams descending by points
+            // Sort teams by points
             data.sort((a, b) => b.points - a.points);
+
+            // Capture current positions
+            const prevPositions = {};
+            document.querySelectorAll('#teams li').forEach(li => {
+                prevPositions[li.dataset.id] = li.getBoundingClientRect().top;
+            });
 
             teamsList.innerHTML = '';
 
             data.forEach(team => {
                 const li = document.createElement('li');
+                li.dataset.id = team.id; // track ID for animation
                 li.style.backgroundColor = team.colour || '#333';
                 li.style.borderRadius = '5px';
                 li.style.margin = '5px 0';
@@ -78,27 +85,19 @@ function loadLeaderboard() {
                     const plusBtn = document.createElement('button');
                     plusBtn.className = 'plus-btn';
                     plusBtn.textContent = '+';
-                    plusBtn.onclick = e => { 
-                        e.stopPropagation(); 
-                        changePoints(team.id, 1); 
-                    };
+                    plusBtn.onclick = e => { e.stopPropagation(); changePoints(team.id, 1); };
 
                     const minusBtn = document.createElement('button');
                     minusBtn.className = 'minus-btn';
                     minusBtn.textContent = '−';
-                    minusBtn.onclick = e => { 
-                        e.stopPropagation(); 
-                        changePoints(team.id, -1); 
-                    };
+                    minusBtn.onclick = e => { e.stopPropagation(); changePoints(team.id, -1); };
 
                     const removeBtn = document.createElement('button');
                     removeBtn.className = 'team-btn';
                     removeBtn.textContent = 'Remove';
-                    removeBtn.onclick = e => {
-                        e.stopPropagation();
-                        if (confirm(`Are you sure you want to delete "${team.name}"?`)) {
-                            removeTeam(team.id);
-                        }
+                    removeBtn.onclick = e => { 
+                        e.stopPropagation(); 
+                        if (confirm(`Are you sure you want to delete "${team.name}"?`)) removeTeam(team.id); 
                     };
 
                     teamRight.appendChild(plusBtn);
@@ -109,8 +108,19 @@ function loadLeaderboard() {
                 teamRow.appendChild(teamLeft);
                 teamRow.appendChild(teamRight);
                 li.appendChild(teamRow);
-
                 teamsList.appendChild(li);
+
+                // Animate move
+                if (prevPositions[team.id] !== undefined) {
+                    const delta = prevPositions[team.id] - li.getBoundingClientRect().top;
+                    if (delta) {
+                        li.style.transform = `translateY(${delta}px)`;
+                        requestAnimationFrame(() => {
+                            li.style.transition = 'transform 0.5s ease';
+                            li.style.transform = '';
+                        });
+                    }
+                }
             });
         });
 }
