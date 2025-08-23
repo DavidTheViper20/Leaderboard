@@ -30,14 +30,14 @@
   {
     "id": 5,
     "name": "Mayo Militia",
-    "points": 56,
+    "points": 54,
     "colour": "#fff8e0",
     "logo": "icons/mayo-pixel.png"
   },
   {
     "id": 6,
     "name": "Sunkissed Savers",
-    "points": 54,
+    "points": 56,
     "colour": "#ffa500",
     "logo": "icons/sun-pixel.png"
   }
