@@ -3,8 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const multer = require('multer');
-const upload = multer({ dest: path.join(__dirname, 'public', 'icons/') });
 
 
 app.use(express.json());
