@@ -51,7 +51,7 @@ function loadLeaderboard() {
                 teamRow.style.justifyContent = 'space-between';
                 teamRow.style.alignItems = 'center';
 
-                // Left: icon + name
+                // Left: icon + (optional colour picker) + name
                 const teamLeft = document.createElement('div');
                 teamLeft.className = 'team-left';
                 teamLeft.style.display = 'flex';
@@ -59,14 +59,64 @@ function loadLeaderboard() {
 
                 const icon = document.createElement('div');
                 icon.className = 'team-icon';
-                if (team.logo) icon.style.backgroundImage = `url('${team.logo}')`;
                 icon.style.backgroundSize = 'cover';
+                icon.style.width = '40px';
+                icon.style.height = '40px';
+                icon.style.marginRight = '5px';
+                if (team.logo) icon.style.backgroundImage = `url('${team.logo}')`;
+
+                teamLeft.appendChild(icon);
+
+                // Admin: colour picker
+                if (isAdmin) {
+                    const colourBtn = document.createElement('img');
+                    colourBtn.src = 'icons/colour-picker.png';
+                    colourBtn.style.width = '35px';
+                    colourBtn.style.height = '35px';
+                    colourBtn.style.cursor = 'pointer';
+                    colourBtn.style.position = 'relative';
+
+                    const colorInput = document.createElement('input');
+                    colorInput.type = 'color';
+                    colorInput.value = team.colour || "#333333";
+                    colorInput.style.position = 'absolute';
+                    colorInput.style.opacity = 0;
+                    colorInput.style.pointerEvents = 'none';
+
+                    colourBtn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        colorInput.click();
+                    });
+
+                    colorInput.addEventListener('input', e => {
+                        li.style.backgroundColor = e.target.value;
+                    });
+
+                    const applyColour = e => {
+                        if (colorInput.value !== team.colour) {
+                            fetch(`/leaderboard/${team.id}`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Authorization': 'Basic ' + btoa('admin:leaderboard123'),
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ colour: colorInput.value })
+                            }).then(() => { team.colour = colorInput.value; });
+                        }
+                        document.removeEventListener('click', applyColour);
+                    };
+
+                    colorInput.addEventListener('input', () => {
+                        document.addEventListener('click', applyColour);
+                    });
+
+                    teamLeft.appendChild(colourBtn);
+                    teamLeft.appendChild(colorInput);
+                }
 
                 const nameSpan = document.createElement('span');
                 nameSpan.className = 'team-name';
                 nameSpan.textContent = team.name;
-
-                teamLeft.appendChild(icon);
                 teamLeft.appendChild(nameSpan);
 
                 // Right: score + admin buttons
@@ -124,6 +174,7 @@ function loadLeaderboard() {
             });
         });
 }
+
 
 
 // -------------------- Admin Functions --------------------

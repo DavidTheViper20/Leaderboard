@@ -6,12 +6,12 @@
     align-items: center;
     justify-content: center;
 
-    min-width: 44px;
+    min-width: 36px;
     height: 32px;
-    font-size: 20px;
+    font-size: 26px;
     border-radius: 5px;
     cursor: pointer;
-    font-family: 'Press Start 2P', cursive;
+    font-family:  cursive;
     color: #fff;
     border: none;
 }
@@ -20,8 +20,8 @@
 .minus-btn {
     background-color: #dc3545;
     font-weight: bold;
-    font-size: 30px;
-    font-family: 'Press Start 2P', cursive;
+    font-size: 26px;
+    font-family: cursive;
     position: relative;
 }
 
@@ -118,4 +118,47 @@
     border: 2px solid #000;
     border-radius: 3px;
     text-align: center;
+}
+
+.colour-wheel {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: conic-gradient(
+    red, yellow, lime, cyan, blue, magenta, red
+  );
+  border: 2px solid #333;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+#appInfo {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    font-family: 'Arial', sans-serif;
+    background: rgba(0, 0, 0, 0.377);
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: auto;
+    cursor: default;
+    text-align: right;
+}
+
+#editBtn {
+    padding: 10px 20px;       /* bigger click area */
+    font-size: 16px;          /* larger text */
+    border-radius: 6px;       /* rounded corners */
+    background-color: #007bff; /* nice blue */
+    color: white;             /* text color */
+    border: none;             /* remove default border */
+    cursor: pointer;          /* pointer on hover */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#editBtn:hover {
+    background-color: #555555; /* darker blue on hover */
+    transform: scale(1.05);    /* subtle grow effect */
 }

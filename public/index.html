@@ -7,20 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         /* Container */
-body {
-    background-image: url('icons/beach-background.png'); /* exact path & name */
-    background-size: cover;       /* fill whole screen */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: 'Press Start 2P', cursive;
-    color: #ffd700;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-}
-
+        body {
+            background-image: url('icons/beach-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffd700;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
 
         .leaderboard-container {
             display: inline-block;
@@ -30,27 +29,16 @@ body {
             background-color: #0056a0;
         }
 
-      /* Header */
-h1 {
-    font-size: 44px; /* main title */
-    margin: 8px 0;
-}
+        /* Header */
+        h1 { font-size: 44px; margin: 8px 0; }
+        h2 { font-size: 30px; margin: 6px 0; }
+        h3 { font-size: 24px; margin: 5px 0; }
 
-h2 {
-    font-size: 30px; /* subtitles */
-    margin: 6px 0;
-}
-
-h3 {
-    font-size: 24px; /* smaller headers */
-    margin: 5px 0;
-}
-
-h1, h2, h3 {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #ffd700;
-}
+        h1, h2, h3 {
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #ffd700;
+        }
 
         #date {
             font-size: 12px;
@@ -59,12 +47,7 @@ h1, h2, h3 {
         }
 
         /* Team rows */
-        #teams {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
+        #teams { list-style: none; padding: 0; margin: 0; }
         #teams li {
             display: flex;
             justify-content: space-between;
@@ -79,15 +62,9 @@ h1, h2, h3 {
             cursor: pointer;
             transition: transform 0.1s, box-shadow 0.2s;
         }
-
         #teams li:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .team-info {
-            display: flex;
-            align-items: center;
         }
 
         .team-icon {
@@ -97,6 +74,7 @@ h1, h2, h3 {
             border: 2px solid #000;
             border-radius: 5px;
             flex-shrink: 0;
+            background-size: cover;
         }
 
         .team-name {
@@ -116,16 +94,27 @@ h1, h2, h3 {
             text-align: center;
         }
 
-        .team-actions {
-            display: flex;
-            gap: 5px;
-            align-items: center;
+        .plus-btn { background-color: #007bff; color: #fff; }
+        .minus-btn { background-color: #dc3545; color: #fff; }
+        .team-btn { background-color: #424242; color: #fff; }
+
+        /* Rainbow colour button */
+        .colour-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            margin: 0 8px;
+            cursor: pointer;
+            background: conic-gradient(
+                red, orange, yellow, green, cyan, blue, violet, red
+            );
+            flex-shrink: 0;
         }
-
-
-        .plus-btn { background-color: #007bff; color: #fff;}
-        .minus-btn { background-color: #dc3545; color: #fff;}
-        .team-btn { background-color: #424242; color: #fff;}
+        .colour-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 6px rgba(255,255,255,0.7);
+        }
 
         /* Edit button fixed */
         #editBtn {
@@ -141,35 +130,33 @@ h1, h2, h3 {
         }
 
         /* Login modal */
-#loginModal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    padding: 20px 30px;       /* give more horizontal padding */
-    border: 2px solid #333;
-    border-radius: 10px;
-    z-index: 1000;
-    width: 380px;
-    text-align: center;       /* center contents */
-    box-sizing: border-box;
-}
-
-#loginModal input {
-    display: block;
-    margin: 10px auto;        /* auto margin to center input */
-    padding: 10px;            /* bigger input fields */
-    width: 80%;               /* take most of modal width */
-    box-sizing: border-box;
-}
-
-#loginModal button {
-    padding: 10px 15px;       /* bigger buttons */
-    margin: 10px 5px 0 5px;
-    cursor: pointer;
-}
+        #loginModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px 30px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            z-index: 1000;
+            width: 380px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #loginModal input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+        #loginModal button {
+            padding: 10px 15px;
+            margin: 10px 5px 0 5px;
+            cursor: pointer;
+        }
 
         #modalOverlay {
             display: none;
@@ -183,38 +170,33 @@ h1, h2, h3 {
         }
 
         /* Add Team Section */
-#addTeamSection {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
-}
-
-/* Team name input */
-#teamName {
-    flex: 1;                      /* take up remaining space */
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background-color: #fff;
-    font-family: 'Press Start 2P', cursive;
-    color: #000;
-}
-
-/* Add Team button */
-#addTeamSection button {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-family: 'Press Start 2P', cursive;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    min-width: 100px;
-}
-
+        #addTeamSection {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        #teamName {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 2px solid #000;
+            background-color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            color: #000;
+        }
+        #addTeamSection button {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'Press Start 2P', cursive;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            min-width: 100px;
+        }
     </style>
 </head>
 <body>
@@ -247,11 +229,16 @@ h1, h2, h3 {
 
     <script src="app.js"></script>
     <script>
+        
         // Show today's date
         const dateDiv = document.getElementById('date');
         const today = new Date();
         dateDiv.textContent = today.toLocaleDateString('en-AU');
     </script>
+
+<div id="appInfo">
+  <span>© David Naguib</span> | V1.4
+</div>
+
 </body>
 </html>
-

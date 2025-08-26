@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const multer = require('multer');
+const upload = multer({ dest: path.join(__dirname, 'public', 'icons/') });
 
 
 app.use(express.json());
@@ -41,6 +43,8 @@ function checkAuth(req, res, next) {
     }
 }
 
+// ----------------- ROUTES -----------------
+
 // GET leaderboard
 app.get('/leaderboard', (req, res) => {
     res.json(loadLeaderboard());
@@ -53,7 +57,8 @@ app.post('/leaderboard', checkAuth, (req, res) => {
     const newTeam = {
         id: newId,
         name: req.body.name || "New Team",
-        points: 0
+        points: 0,
+        colour: req.body.colour || "#333" // default colour
     };
     leaderboard.push(newTeam);
     saveLeaderboard(leaderboard);
@@ -72,24 +77,41 @@ app.delete('/leaderboard/:teamId', checkAuth, (req, res) => {
     res.json({ success: true });
 });
 
-// PATCH team points
+// PATCH team points and/or colour
 app.patch('/leaderboard/:teamId', checkAuth, (req, res) => {
     let leaderboard = loadLeaderboard();
     const teamId = parseInt(req.params.teamId);
     const team = leaderboard.find(t => t.id === teamId);
     if (!team) return res.status(404).json({ error: 'Team not found' });
 
-    const delta = parseInt(req.body.delta) || 0;
-    team.points += delta;
+    // Update points if delta exists
+    if (typeof req.body.delta !== "undefined") {
+        const delta = parseInt(req.body.delta) || 0;
+        team.points += delta;
+    }
+
+    // Update colour if provided
+    if (req.body.colour) {
+        team.colour = req.body.colour;
+    }
+
     saveLeaderboard(leaderboard);
     res.json(team);
 });
 
+app.patch('/leaderboard/:teamId/colour', checkAuth, (req, res) => {
+    let leaderboard = loadLeaderboard();
+    const teamId = parseInt(req.params.teamId);
+    const team = leaderboard.find(t => t.id === teamId);
+    if (!team) return res.status(404).json({ error: 'Team not found' });
 
-app.listen(PORT, () => {
-    console.log(`Leaderboard app running at port ${PORT}`);
+    if (req.body.colour) {
+        team.colour = req.body.colour;
+    }
+
+    saveLeaderboard(leaderboard);
+    res.json(team);
 });
-
 
 // ----------------- FALLBACK ROUTE -----------------
 app.get('/', (req, res) => {
